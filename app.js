@@ -66,18 +66,21 @@ app.use(async (ctx, next) => {
 // 格式化输出
 app.use(async (ctx, next) => {
     await next();
-    if (ctx.body) {
-      ctx.body = {
-        code: 0,
-        message: 'success',
-        data: ctx.body,
-      };
-    } else {
-      ctx.body = {
-        code: 0,
-        message: 'success',
-      };
+    if(ctx.type === 'application/json'){
+      if (ctx.body) {
+        ctx.body = {
+          code: 0,
+          message: 'success',
+          data: ctx.body,
+        };
+      } else {
+        ctx.body = {
+          code: 0,
+          message: 'success',
+        };
+      }
     }
+    
   });
 // 解析formdata body 上传文件
 app.use(
