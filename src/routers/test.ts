@@ -1,4 +1,4 @@
-const koaRouter = require('koa-router');
+import koaRouter from 'koa-router';
 
 const router = new koaRouter();
 
@@ -19,7 +19,7 @@ router.post('/test/:page/:size', async ctx => {
   console.log(this.request.fields); // if json
   // -------------------------------------------------------------------------
   let { page, size } = ctx.params;
-  ctx.body = data;
+  ctx.body = { OK: true };
 });
 
 module.exports = router;
