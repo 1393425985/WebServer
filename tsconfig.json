@@ -7,11 +7,12 @@
     "lib": ["es2017", "dom"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "sourceMap": true,
     "baseUrl": ".",
     "outDir":"dist",
     "paths": {
-      "@*": ["src/*"]
+      "@*": ["./src/*"]
     },
     "allowSyntheticDefaultImports": true,
   },

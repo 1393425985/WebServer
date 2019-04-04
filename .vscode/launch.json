@@ -16,6 +16,7 @@
             "name": "tsnode",
             "program": "${workspaceRoot}/node_modules/ts-node/dist/bin.js",
             "args": [
+                "--files",
                 "${relativeFile}"
             ],
             "cwd": "${workspaceRoot}",

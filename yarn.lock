@@ -119,10 +119,22 @@
   resolved "http://47.97.71.190:4873/@types%2fmime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha1-3EiIQjEqfwdRSTEpBbXjwLBUx50=
 
+"@types/mysql@^2.15.5":
+  version "2.15.5"
+  resolved "http://47.97.71.190:4873/@types%2fmysql/-/mysql-2.15.5.tgz#6d75afb5cc018c9d66b2f37a046924e397f85430"
+  integrity sha1-bXWvtcwBjJ1msvN6BGkk45f4VDA=
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*":
   version "11.12.2"
   resolved "http://47.97.71.190:4873/@types%2fnode/-/node-11.12.2.tgz#d7f302e74b10e9801d52852137f652d9ee235da8"
   integrity sha1-1/MC50sQ6YAdUoUhN/ZS2e4jXag=
+
+"@types/node@^11.13.0":
+  version "11.13.0"
+  resolved "http://47.97.71.190:4873/@types%2fnode/-/node-11.13.0.tgz#b0df8d6ef9b5001b2be3a94d909ce3c29a80f9e1"
+  integrity sha1-sN+Nbvm1ABsr46lNkJzjwpqA+eE=
 
 "@types/range-parser@*":
   version "1.2.3"
@@ -278,6 +290,11 @@ base@^0.11.1:
     isobject "^3.0.1"
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
+
+bignumber.js@4.1.0:
+  version "4.1.0"
+  resolved "http://47.97.71.190:4873/bignumber.js/-/bignumber.js-4.1.0.tgz#db6f14067c140bd46624815a7916c92d9b6c24b1"
+  integrity sha1-228UBnwUC9RmJIFaeRbJLZtsJLE=
 
 binary-extensions@^1.0.0:
   version "1.13.1"
@@ -1650,6 +1667,16 @@ ms@^2.1.1:
   resolved "http://47.97.71.190:4873/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
   integrity sha1-MKWGTrPrsKZvLr5tcnrwagnYbgo=
 
+mysql@^2.16.0:
+  version "2.16.0"
+  resolved "http://47.97.71.190:4873/mysql/-/mysql-2.16.0.tgz#b23b22ab5de44fc2d5d32bd4f5af6653fc45e2ba"
+  integrity sha1-sjsiq13kT8LV0yvU9a9mU/xF4ro=
+  dependencies:
+    bignumber.js "4.1.0"
+    readable-stream "2.3.6"
+    safe-buffer "5.1.2"
+    sqlstring "2.3.1"
+
 mz@^2.4.0, mz@^2.7.0:
   version "2.7.0"
   resolved "http://47.97.71.190:4873/mz/-/mz-2.7.0.tgz#95008057a56cafadc2bc63dde7f9ff6955948e32"
@@ -1989,7 +2016,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-readable-stream@^2.0.2, readable-stream@^2.0.6:
+readable-stream@2.3.6, readable-stream@^2.0.2, readable-stream@^2.0.6:
   version "2.3.6"
   resolved "http://47.97.71.190:4873/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   integrity sha1-sRwn2IuP8fvgcGQ8+UsMea4bCq8=
@@ -2235,6 +2262,11 @@ split-string@^3.0.1, split-string@^3.0.2:
   integrity sha1-fLCd2jqGWFcFxks5pkZgOGguj+I=
   dependencies:
     extend-shallow "^3.0.0"
+
+sqlstring@2.3.1:
+  version "2.3.1"
+  resolved "http://47.97.71.190:4873/sqlstring/-/sqlstring-2.3.1.tgz#475393ff9e91479aea62dcaf0ca3d14983a7fb40"
+  integrity sha1-R1OT/56RR5rqYtyvDKPRSYOn+0A=
 
 static-extend@^0.1.1:
   version "0.1.2"

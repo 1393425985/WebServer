@@ -9,7 +9,7 @@ import ejs from 'ejs';
 import url from 'url';
 import fs from 'fs';
 import path from 'path';
-import * as config from '@utils/config';
+import * as config from './utils/config';
 
 class Server {
   public app = new Koa();
@@ -23,9 +23,9 @@ class Server {
     this.initRouter();
     this.initMiddle();
     this.initEvent();
-    this.initListen();
+    const server = this.initListen();
 
-    this.initWS();
+    // this.initWS(server);
   }
   private initRouter() {
     this.router.get('/', async ctx => {
@@ -78,6 +78,7 @@ class Server {
       } catch (err) {
         ctx.response.status = err.statusCode || err.status || 500;
         ctx.response.body = {
+          code: -1,
           success: false,
           message: err.message,
         };
@@ -122,7 +123,7 @@ class Server {
       koajwt({
         secret: config.secret,
       }).unless({
-        path: [/^\/api\/user\/login/, /^\/api\/register/, /^((?!\/api).)*$/],
+        path: [/^\/api\/user\/login/, /^\/api\/user\/register/, /^((?!\/api).)*$/],
       }),
     );
 
@@ -144,12 +145,12 @@ class Server {
     });
   }
   private initListen() {
-    const server = this.app.listen(config.port);
-    this.wss = new WebSocket.Server({ server });
     console.log('Server running on port 3000');
+    return this.app.listen(config.port);
   }
 
-  private initWS() {
+  private initWS(server) {
+    this.wss = new WebSocket.Server({ server });
     function noop() {}
 
     function heartbeat() {
