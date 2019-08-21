@@ -12,14 +12,14 @@ class Mysql {
             database: config.mysql.database,
         });
     }
-    async query(sql) {
+    async query(sql, params = []) {
         return new Promise((resolve, reject) => {
             this.pool.getConnection((err, conn) => {
                 if (err) {
                     reject(err);
                 }
                 else {
-                    conn.query(sql, (err, results, fields) => {
+                    conn.query(sql, params, (err, results, fields) => {
                         //释放连接
                         conn.release();
                         if (err) {

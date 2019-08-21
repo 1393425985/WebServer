@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "node ./beforeBuild.js && tsc && node ./afterBuild.js",
     "start": "ts-node src/server.ts",
     "start:dev": "nodemon",
     "server": "node dist/server.js"
@@ -25,6 +25,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.5",
+    "mongoose": "^5.6.10",
     "mysql": "^2.16.0",
     "ws": "^6.2.1"
   },
@@ -33,6 +34,7 @@
     "@types/koa": "^2.0.48",
     "@types/koa-jwt": "^3.3.0",
     "@types/koa-router": "^7.0.40",
+    "@types/mongoose": "^5.5.13",
     "@types/mysql": "^2.15.5",
     "@types/node": "^11.13.0",
     "@types/ws": "^6.0.1",

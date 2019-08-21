@@ -31,7 +31,9 @@ class Server {
     this.router.get('/', async ctx => {
       //   重定向
       //   ctx.response.redirect(url);
-      await ctx.render('index', {});
+      await ctx.render('index', {
+        
+      });
     });
     const routers = fs.readdirSync(__dirname + '/routers');
     routers.forEach(element => {
@@ -62,7 +64,7 @@ class Server {
     // token验证
     this.app.use(async (ctx, next) => {
       const token = ctx.cookies.get('token');
-      // TODO 验证token
+      // TODO 验证token 已用jwt替代
       await next();
     });
     // 加载视图
@@ -77,10 +79,14 @@ class Server {
         await next();
       } catch (err) {
         ctx.response.status = err.statusCode || err.status || 500;
+        let msg = err.message;
+        if(err.status === 401){
+          msg = 'Protected resource, use Authorization header to get access\n';
+        }
         ctx.response.body = {
           code: -1,
           success: false,
-          message: err.message,
+          message: msg,
         };
         // 手动触发err订阅事件
         ctx.app.emit('error', err, ctx);
@@ -105,11 +111,11 @@ class Server {
     this.app.use(
       koaBody({
         multipart: true, // 支持文件上传
-        encoding: 'gzip',
+        // encoding: 'gzip',
         formidable: {
           uploadDir: path.join(__dirname, 'upload/'), // 设置文件上传目录
           keepExtensions: true, // 保持文件的后缀
-          maxFieldsSize: 2 * 1024 * 1024, // 文件上传大小
+          maxFieldsSize: 20 * 1024 * 1024, // 文件上传大小
           onFileBegin: (name, file) => {
             // 文件上传前的设置
             // console.log(`name: ${name}`);

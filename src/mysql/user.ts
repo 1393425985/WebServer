@@ -1,5 +1,6 @@
 /// <reference types="./types/UserTypes" />
 import mysql from './mysql';
+import mongo from '../mongodb/mongo';
 
 const tableName = 'user';
 

@@ -57,7 +57,7 @@ class Server {
         // token验证
         this.app.use(async (ctx, next) => {
             const token = ctx.cookies.get('token');
-            // TODO 验证token
+            // TODO 验证token 已用jwt替代
             await next();
         });
         // 加载视图
@@ -71,9 +71,14 @@ class Server {
             }
             catch (err) {
                 ctx.response.status = err.statusCode || err.status || 500;
+                let msg = err.message;
+                if (err.status === 401) {
+                    msg = 'Protected resource, use Authorization header to get access\n';
+                }
                 ctx.response.body = {
+                    code: -1,
                     success: false,
-                    message: err.message,
+                    message: msg,
                 };
                 // 手动触发err订阅事件
                 ctx.app.emit('error', err, ctx);

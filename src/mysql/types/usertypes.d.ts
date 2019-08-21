@@ -6,4 +6,5 @@ declare namespace UserTypes {
     email: string;
     tel: string;
   }
+  export type Jwt = Partial<Model>
 }

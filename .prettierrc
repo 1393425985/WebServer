@@ -1,8 +1,9 @@
 {
-  "tabWidth": 2,
+  "tabWidth": 4,
   "singleQuote": true,
   "semi": true,
   "trailingComma": "all",
   "useTabs": false,
-  "printWidth": 80
+  "printWidth": 80,
+  "tslintIntegration": true
 }

@@ -1,85 +1,83 @@
 import koaRouter from 'koa-router';
-import jwt from 'jsonwebtoken';
-import * as userModel from '../database/user';
-import * as config from '../utils/config';
+import * as userControler from '../mongodb/user';
 const router = new koaRouter();
-const createToken = (info:UserTypes.Model)=>{
-  return jwt.sign(
-    {
-      nickname: info.nickname,
-      id: info.id,
-    },
-    config.secret,
-    { expiresIn: '2h' },
-  )
-}
+
 // 注册
 interface registerParams {
-  tel: UserTypes.Model['tel'];
-  password: UserTypes.Model['password'];
+    tel?: UserType.Model['tel'];
+    email?: UserType.Model['email'];
+    pwd: UserType.Model['pwd'];
 }
 router.post('/register', async ctx => {
-  const params: registerParams = ctx.request.body;
-  if (!params.tel || !params.password) {
-    return (ctx.body = {
-      success: false,
-      message: '参数不合法',
-    });
-  }
-  const result = await userModel.addOne({
-    tel: params.tel,
-    password: params.password,
-    nickname: '未命名'
-  });
-  if (result !== null) {
-    const token = createToken(result);
-    ctx.body = {
-      data: { token, info: jwt.decode(token) },
-      msg: '登录成功',
-    };
-  } else {
-    ctx.body = {
-      success: false,
-      msg: '注册失败',
-    };
-  }
+    const params: registerParams = ctx.request.body;
+    if (!(params.tel || params.email) || !params.pwd) {
+        return (ctx.body = {
+            success: false,
+            message: '参数不合法',
+        });
+    }
+    const result = await userControler.save(
+        Object.assign(
+            {
+                pwd: params.pwd,
+            },
+            params.tel ? { tel: params.tel } : { email: params.email },
+        ),
+    );
+    if (result.success) {
+        const token = result.data.createToken();
+        ctx.body = {
+            data: { token, info: result.data.token2info(token) },
+            msg: '登录成功',
+        };
+    } else {
+        ctx.body = {
+            success: false,
+            msg: '注册失败',
+        };
+    }
 });
 // 登录
 interface loginParams {
-  id: UserTypes.Model['id'];
-  password: UserTypes.Model['password'];
+    tel?: UserType.Model['tel'];
+    email?: UserType.Model['email'];
+    pwd: UserType.Model['pwd'];
 }
 router.post('/login', async ctx => {
-  // // 设置 cookie
-  // ctx.cookies.set('token', 'bill', {
-  //   expires: new Date(), // 时间
-  //   path: '/', // 路径
-  //   domain: '0.0.0.0', // 域
-  //   httpOnly: true, // 禁止js获取
-  // });
-  const params: loginParams = ctx.request.body;
-  if (!params.id || !params.password) {
-    return (ctx.body = {
-      success: false,
-      message: '参数不合法',
-    });
-  }
-  const result = await userModel.findOne({
-    id: params.id,
-    password: params.password,
-  });
-  if (result !== null) {
-    const token = createToken(result);
-    ctx.body = {
-      data: { token, info: jwt.decode(token) },
-      msg: '登录成功',
-    };
-  } else {
-    ctx.body = {
-      success: false,
-      msg: '用户名或密码错误',
-    };
-  }
+    // // 设置 cookie
+    // ctx.cookies.set('token', 'bill', {
+    //   expires: new Date(), // 时间
+    //   path: '/', // 路径
+    //   domain: '0.0.0.0', // 域
+    //   httpOnly: true, // 禁止js获取
+    // });
+    const params: loginParams = ctx.request.body;
+    if (!(params.tel || params.email) || !params.pwd) {
+        return (ctx.body = {
+            success: false,
+            message: '参数不合法',
+        });
+    }
+    const result = await userControler.findOne(
+        Object.assign(
+            {
+                pwd: params.pwd,
+            },
+            params.tel ? { tel: params.tel } : { email: params.email },
+        ),
+    );
+    if (result.success) {
+        const token = result.data.createToken();
+        ctx.body = {
+            data: { token, info: result.data.token2info(token) },
+            msg: '登录成功',
+        };
+    } else {
+        ctx.body = {
+            success: false,
+            msg: '用户名或密码错误',
+        };
+    }
 });
 
 // 注销
@@ -100,14 +98,14 @@ router.get('/userInfo', ctx => {
 });
 
 // 跟新
-type updateParams = Partial<UserTypes.Model>;
+type updateParams = Partial<UserType.Model>;
 router.post('/update', async ctx => {
   const params: updateParams = ctx.request.body;
-  const result = await userModel.updateOne(params,{id:ctx.state.user.id});
-  if (result !== null) {
-    const token = createToken(result);
+  const result = await userControler.updateOne(ctx.state.user.id,params);
+  if (result.success) {
+    const token = result.data.createToken();
     ctx.body = {
-      data: { token, info: jwt.decode(token) },
+      data: { token, info: result.data.token2info(token) },
       msg: '更新成功',
     };
   } else {
