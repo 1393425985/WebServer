@@ -1,4 +1,6 @@
 import koaRouter from 'koa-router';
+import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa';
+import schema from '../graphql/schema';
 import * as userControler from '../mongodb/user';
 const router = new koaRouter();
 
@@ -24,10 +26,10 @@ router.post('/register', async ctx => {
             params.tel ? { tel: params.tel } : { email: params.email },
         ),
     );
-    if (result.success) {
-        const token = result.data.createToken();
+    if (result) {
+        const token = result.createToken();
         ctx.body = {
-            data: { token, info: result.data.token2info(token) },
+            data: { token, info: result.token2info(token) },
             msg: '登录成功',
         };
     } else {
@@ -66,10 +68,10 @@ router.post('/login', async ctx => {
             params.tel ? { tel: params.tel } : { email: params.email },
         ),
     );
-    if (result.success) {
-        const token = result.data.createToken();
+    if (result) {
+        const token = result.createToken();
         ctx.body = {
-            data: { token, info: result.data.token2info(token) },
+            data: { token, info: result.token2info(token) },
             msg: '登录成功',
         };
     } else {
@@ -82,38 +84,49 @@ router.post('/login', async ctx => {
 
 // 注销
 router.post('/logout', async ctx => {
-  console.log(ctx.state.user);
-  ctx.body = { OK: true };
+    console.log(ctx.state.user);
+    ctx.body = { OK: true };
 });
 
 // 获取信息
 router.get('/userInfo', ctx => {
-  const token = ctx.header.authorization;
-  ctx.body = {
-    data: { token: token, user: ctx.state.user },
-  };
-  //使用jwt-simple自行解析数据
-  //  let payload = jwt.decode(token.split(' ')[1], jwtSecret);
-  //   console.log(payload)
+    const token = ctx.header.authorization;
+    ctx.body = {
+        data: { token: token, user: ctx.state.user },
+    };
+    //使用jwt-simple自行解析数据
+    //  let payload = jwt.decode(token.split(' ')[1], jwtSecret);
+    //   console.log(payload)
 });
 
 // 跟新
 type updateParams = Partial<UserType.Model>;
 router.post('/update', async ctx => {
-  const params: updateParams = ctx.request.body;
-  const result = await userControler.updateOne(ctx.state.user.id,params);
-  if (result.success) {
-    const token = result.data.createToken();
-    ctx.body = {
-      data: { token, info: result.data.token2info(token) },
-      msg: '更新成功',
-    };
-  } else {
-    ctx.body = {
-      success: false,
-      msg: '更新失败',
-    };
-  }
+    const params: updateParams = ctx.request.body;
+    const result = await userControler.updateOne(ctx.state.user.id, params);
+    if (result) {
+        const token = result.createToken();
+        ctx.body = {
+            data: { token, info: result.token2info(token) },
+            msg: '更新成功',
+        };
+    } else {
+        ctx.body = {
+            success: false,
+            msg: '更新失败',
+        };
+    }
 });
+
+
+router.post('/graphql', async (ctx, next) => {
+    await graphqlKoa({schema: schema})(ctx, next) // 使用schema
+    })
+    .get('/graphql', async (ctx, next) => {
+    await graphqlKoa({schema: schema})(ctx, next) // 使用schema
+    })
+    .get('/graphiql', async (ctx, next) => {
+    await graphiqlKoa({endpointURL: '/api/user/graphql'})(ctx) // 重定向到graphiql路由
+    })
 
 module.exports = router;

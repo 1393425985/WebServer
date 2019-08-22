@@ -1,70 +1,34 @@
 import mongoose from 'mongoose';
 import { User, UserModel } from './schema/user';
-import connect, {
-    updateError,
-    updateSuccess,
-    linkError,
-    IPromise,
-} from './mongo';;
+import connect from './mongo';
 
 // 新增
-export const save = async (
-    info: Partial<UserType.Model>,
-): IPromise<UserModel> =>
-    new Promise((resolve, reject) => {
-        connect().then(
-            async () => {
-                const user = new User(info);
-                const saveUser = await user.save();
-                if (saveUser) {
-                    resolve(updateSuccess(saveUser));
-                } else {
-                    reject(updateError());
-                }
-            },
-            () => {
-                reject(linkError());
-            },
-        );
+export const save = async (info: Partial<UserType.Model>): Promise<UserModel> =>
+    connect().then(async () => {
+        const user = new User(info);
+        const saveUser = await user.save();
+        return saveUser;
     });
-    export const findOne = async (
-        info: any,
-    ): IPromise<UserModel> =>
-        new Promise((resolve, reject) => {
-            connect().then(
-                async () => {
-                    const user = await User.findOne(info);
-                    if (user) {
-                        resolve(updateSuccess(user));
-                    } else {
-                        reject(updateError());
-                    }
-                },
-                () => {
-                    reject(linkError());
-                },
-            );
-        });
+export const findOne = async (info: any): Promise<UserModel> => connect().then(
+    async () => {
+        const user = await User.findOne(info);
+        return user;
+    }
+);
 export const updateOne = async (
     id: string,
     info: Partial<UserType.Model>,
-): IPromise<UserModel> =>
-    new Promise((resolve, reject) => {
-        connect().then(
-            async () => {
-                const user = await User.updateOne({_id:id}, info);
-                if (user && user.ok) {
-                    const newUser = await findOne({_id:id})
-                    resolve(updateSuccess(newUser.data));
-                } else {
-                    reject(updateError());
-                }
-            },
-            () => {
-                reject(linkError());
-            },
-        );
-    });
+): Promise<UserModel> =>connect().then(
+    async () => {
+        const user = await User.updateOne({ _id: id }, info);
+        if (user && user.ok) {
+            const newUser = await findOne({ _id: id });
+            return newUser;
+        } else {
+            return undefined;
+        }
+    }
+);
 
 // 级联查询
 // export const fetchStudentDetail = async (ctx, next) => {

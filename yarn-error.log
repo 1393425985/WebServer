@@ -1,30 +1,30 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe D:\Program Files (x86)\Yarn\bin\yarn.js add @type/ws
+  D:\Program Files\nodejs\node.exe D:\Program Files (x86)\Yarn\bin\yarn.js add @types/graphql-server-koa
 
 PATH: 
-  D:\soft\xftp\;D:\soft\xshell\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python36\;C:\Python36\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Python36;D:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\wkhtmltopdf\bin;D:\Program Files\jdk\bin;D:\Program Files\jdk\jre\bin;C:\Users\Administrator\AppData\Roaming\npm;D:\Program Files\Git\cmd;D:\Program Files\OpenSSH\bin;D:\Program Files\TortoiseSVN\bin;D:\Program Files (x86)\Yarn\bin\;D:\Program Files\nodejs\;C:\Program Files (x86)\Windows Kits\8.1\bin\x86;D:\Program Files\TortoiseGit\bin;D:\soft\Microsoft VS Code Insiders\bin;C:\Ruby25-x64\bin;C:\Python36\Scripts\;C:\Python36\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;D:\soft\Microsoft VS Code Insiders\bin;C:\Users\Administrator\AppData\Local\atom\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Local\Yarn\bin;C:\Users\Administrator\AppData\Roaming\npm;D:\soft\Apache-Subversion-1.11.1\bin;
+  D:\soft\xftp\;D:\soft\xshell\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python36\;C:\Python36\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Python36;D:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\wkhtmltopdf\bin;D:\Program Files\jdk\bin;D:\Program Files\jdk\jre\bin;C:\Users\Administrator\AppData\Roaming\npm;D:\Program Files\Git\cmd;D:\Program Files\OpenSSH\bin;D:\Program Files\TortoiseSVN\bin;D:\Program Files (x86)\Yarn\bin\;C:\Program Files (x86)\Windows Kits\8.1\bin\x86;D:\Program Files\TortoiseGit\bin;D:\soft\Microsoft VS Code Insiders\bin;D:\Program Files\nodejs\;C:\Ruby25-x64\bin;C:\Python36\Scripts\;C:\Python36\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;D:\soft\Microsoft VS Code Insiders\bin;C:\Users\Administrator\AppData\Local\atom\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Local\Yarn\bin;D:\soft\Apache-Subversion-1.11.1\bin;C:\Users\Administrator\AppData\Roaming\npm
 
 Yarn version: 
   1.12.1
 
 Node version: 
-  8.12.0
+  10.16.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: http://47.97.71.190:4873/@type%2fws: no such package available
+  Error: http://47.97.71.190:4873/@types%2fgraphql-server-koa: no such package available
       at Request.params.callback [as _callback] (D:\Program Files (x86)\Yarn\lib\cli.js:62248:18)
       at Request.self.callback (D:\Program Files (x86)\Yarn\lib\cli.js:124547:22)
-      at emitTwo (events.js:126:13)
-      at Request.emit (events.js:214:7)
+      at Request.emit (events.js:198:13)
       at Request.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:125519:10)
-      at emitOne (events.js:116:13)
-      at Request.emit (events.js:211:7)
+      at Request.emit (events.js:198:13)
       at IncomingMessage.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:125441:12)
-      at Object.onceWrapper (events.js:313:30)
-      at emitNone (events.js:111:20)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1129:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
@@ -33,7 +33,7 @@ npm manifest:
     "description": "",
     "main": "index.js",
     "scripts": {
-      "build": "tsc",
+      "build": "node ./beforeBuild.js && tsc && node ./afterBuild.js",
       "start": "ts-node src/server.ts",
       "start:dev": "nodemon",
       "server": "node dist/server.js"
@@ -47,16 +47,27 @@ npm manifest:
     "license": "ISC",
     "dependencies": {
       "ejs": "^2.6.1",
+      "graphql-server-koa": "^1.4.1",
+      "jsonwebtoken": "^8.5.1",
       "koa": "^2.6.2",
       "koa-body": "^4.0.4",
+      "koa-jwt": "^3.5.1",
       "koa-router": "^7.4.0",
       "koa-static": "^5.0.0",
       "koa-views": "^6.1.5",
+      "mongoose": "^5.6.10",
+      "mysql": "^2.16.0",
       "ws": "^6.2.1"
     },
     "devDependencies": {
+      "@types/jsonwebtoken": "^8.3.2",
       "@types/koa": "^2.0.48",
+      "@types/koa-jwt": "^3.3.0",
       "@types/koa-router": "^7.0.40",
+      "@types/mongoose": "^5.5.13",
+      "@types/mysql": "^2.15.5",
+      "@types/node": "^11.13.0",
+      "@types/ws": "^6.0.1",
       "nodemon": "^1.18.10",
       "ts-node": "^8.0.3",
       "tslib": "^1.9.3",
@@ -85,6 +96,13 @@ Lockfile:
     integrity sha1-n1ydm9BLtUvjLV65/A2Ml05s9Yw=
     dependencies:
       "@types/connect" "*"
+      "@types/node" "*"
+  
+  "@types/bson@*":
+    version "4.0.0"
+    resolved "http://47.97.71.190:4873/@types%2fbson/-/bson-4.0.0.tgz#9073772679d749116eb1dfca56f8eaac6d59cc7a"
+    integrity sha1-kHN3JnnXSRFusd/KVvjqrG1ZzHo=
+    dependencies:
       "@types/node" "*"
   
   "@types/connect@*":
@@ -139,6 +157,13 @@ Lockfile:
     resolved "http://47.97.71.190:4873/@types%2fhttp-assert/-/http-assert-1.4.0.tgz#41d173466e396e99a14d75f7160cc997f2f9ed8b"
     integrity sha1-QdFzRm45bpmhTXX3FgzJl/L57Ys=
   
+  "@types/jsonwebtoken@^8.3.2":
+    version "8.3.2"
+    resolved "http://47.97.71.190:4873/@types%2fjsonwebtoken/-/jsonwebtoken-8.3.2.tgz#e3d5245197152346fae7ee87d5541aa5a92d0362"
+    integrity sha1-49UkUZcVI0b65+6H1VQapaktA2I=
+    dependencies:
+      "@types/node" "*"
+  
   "@types/keygrip@*":
     version "1.0.1"
     resolved "http://47.97.71.190:4873/@types%2fkeygrip/-/keygrip-1.0.1.tgz#ff540462d2fb4d0a88441ceaf27d287b01c3d878"
@@ -150,6 +175,13 @@ Lockfile:
     integrity sha1-TimB97xM4PR5chlRapG/b/OnD6E=
     dependencies:
       "@types/koa" "*"
+  
+  "@types/koa-jwt@^3.3.0":
+    version "3.3.0"
+    resolved "http://47.97.71.190:4873/@types%2fkoa-jwt/-/koa-jwt-3.3.0.tgz#b30fe8a96bbe1aec44cd6da24d91f2963e62e3bf"
+    integrity sha1-sw/oqWu+GuxEzW2iTZHylj5i478=
+    dependencies:
+      koa-jwt "*"
   
   "@types/koa-router@^7.0.40":
     version "7.0.40"
@@ -175,10 +207,38 @@ Lockfile:
     resolved "http://47.97.71.190:4873/@types%2fmime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
     integrity sha1-3EiIQjEqfwdRSTEpBbXjwLBUx50=
   
+  "@types/mongodb@*":
+    version "3.3.0"
+    resolved "http://47.97.71.190:4873/@types%2fmongodb/-/mongodb-3.3.0.tgz#f9e24b211e7cf8d3a6c51793f3f3e0234cd4d9b7"
+    integrity sha1-+eJLIR58+NOmxReT8/PgI0zU2bc=
+    dependencies:
+      "@types/bson" "*"
+      "@types/node" "*"
+  
+  "@types/mongoose@^5.5.13":
+    version "5.5.13"
+    resolved "http://47.97.71.190:4873/@types%2fmongoose/-/mongoose-5.5.13.tgz#f76215bb4848a85eb4f1cb50b051a6f4dd3a019b"
+    integrity sha1-92IVu0hIqF608ctQsFGm9N06AZs=
+    dependencies:
+      "@types/mongodb" "*"
+      "@types/node" "*"
+  
+  "@types/mysql@^2.15.5":
+    version "2.15.5"
+    resolved "http://47.97.71.190:4873/@types%2fmysql/-/mysql-2.15.5.tgz#6d75afb5cc018c9d66b2f37a046924e397f85430"
+    integrity sha1-bXWvtcwBjJ1msvN6BGkk45f4VDA=
+    dependencies:
+      "@types/node" "*"
+  
   "@types/node@*":
     version "11.12.2"
     resolved "http://47.97.71.190:4873/@types%2fnode/-/node-11.12.2.tgz#d7f302e74b10e9801d52852137f652d9ee235da8"
     integrity sha1-1/MC50sQ6YAdUoUhN/ZS2e4jXag=
+  
+  "@types/node@^11.13.0":
+    version "11.13.0"
+    resolved "http://47.97.71.190:4873/@types%2fnode/-/node-11.13.0.tgz#b0df8d6ef9b5001b2be3a94d909ce3c29a80f9e1"
+    integrity sha1-sN+Nbvm1ABsr46lNkJzjwpqA+eE=
   
   "@types/range-parser@*":
     version "1.2.3"
@@ -193,6 +253,14 @@ Lockfile:
       "@types/express-serve-static-core" "*"
       "@types/mime" "*"
   
+  "@types/ws@^6.0.1":
+    version "6.0.1"
+    resolved "http://47.97.71.190:4873/@types%2fws/-/ws-6.0.1.tgz#ca7a3f3756aa12f62a0a62145ed14c6db25d5a28"
+    integrity sha1-yno/N1aqEvYqCmIUXtFMbbJdWig=
+    dependencies:
+      "@types/events" "*"
+      "@types/node" "*"
+  
   abbrev@1:
     version "1.1.1"
     resolved "http://47.97.71.190:4873/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -205,6 +273,14 @@ Lockfile:
     dependencies:
       mime-types "~2.1.18"
       negotiator "0.6.1"
+  
+  aggregate-error@^1.0.0:
+    version "1.0.0"
+    resolved "http://47.97.71.190:4873/aggregate-error/-/aggregate-error-1.0.0.tgz#888344dad0220a72e3af50906117f48771925fac"
+    integrity sha1-iINE2tAiCnLjr1CQYRf0h3GSX6w=
+    dependencies:
+      clean-stack "^1.0.0"
+      indent-string "^3.0.0"
   
   ansi-align@^2.0.0:
     version "2.0.0"
@@ -242,6 +318,42 @@ Lockfile:
     dependencies:
       micromatch "^3.1.4"
       normalize-path "^2.1.1"
+  
+  apollo-cache-control@^0.1.0:
+    version "0.1.1"
+    resolved "http://47.97.71.190:4873/apollo-cache-control/-/apollo-cache-control-0.1.1.tgz#173d14ceb3eb9e7cb53de7eb8b61bee6159d4171"
+    integrity sha1-Fz0UzrPrnny1Pefri2G+5hWdQXE=
+    dependencies:
+      graphql-extensions "^0.0.x"
+  
+  apollo-server-core@^1.4.0:
+    version "1.4.0"
+    resolved "http://47.97.71.190:4873/apollo-server-core/-/apollo-server-core-1.4.0.tgz#4faff7f110bfdd6c3f47008302ae24140f94c592"
+    integrity sha1-T6/38RC/3Ww/RwCDAq4kFA+UxZI=
+    dependencies:
+      apollo-cache-control "^0.1.0"
+      apollo-tracing "^0.1.0"
+      graphql-extensions "^0.0.x"
+  
+  apollo-server-koa@^1.4.0:
+    version "1.4.0"
+    resolved "http://47.97.71.190:4873/apollo-server-koa/-/apollo-server-koa-1.4.0.tgz#59accc941d02ab2b2f8c7e76426a20b7a0ad5a3a"
+    integrity sha1-WazMlB0CqysvjH52Qmogt6CtWjo=
+    dependencies:
+      apollo-server-core "^1.4.0"
+      apollo-server-module-graphiql "^1.4.0"
+  
+  apollo-server-module-graphiql@^1.4.0:
+    version "1.4.0"
+    resolved "http://47.97.71.190:4873/apollo-server-module-graphiql/-/apollo-server-module-graphiql-1.4.0.tgz#c559efa285578820709f1769bb85d3b3eed3d8ec"
+    integrity sha1-xVnvooVXiCBwnxdpu4XTs+7T2Ow=
+  
+  apollo-tracing@^0.1.0:
+    version "0.1.4"
+    resolved "http://47.97.71.190:4873/apollo-tracing/-/apollo-tracing-0.1.4.tgz#5b8ae1b01526b160ee6e552a7f131923a9aedcc7"
+    integrity sha1-W4rhsBUmsWDublUqfxMZI6mu3Mc=
+    dependencies:
+      graphql-extensions "~0.0.9"
   
   aproba@^1.0.3:
     version "1.2.0"
@@ -296,6 +408,13 @@ Lockfile:
     resolved "http://47.97.71.190:4873/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
     integrity sha1-ePrtjD0HSrgfIrTphdeehzj3IPg=
   
+  async@2.6.2:
+    version "2.6.2"
+    resolved "http://47.97.71.190:4873/async/-/async-2.6.2.tgz#18330ea7e6e313887f5d2f2a904bac6fe4dd5381"
+    integrity sha1-GDMOp+bjE4h/XS8qkEusb+TdU4E=
+    dependencies:
+      lodash "^4.17.11"
+  
   atob@^2.1.1:
     version "2.1.2"
     resolved "http://47.97.71.190:4873/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
@@ -319,10 +438,20 @@ Lockfile:
       mixin-deep "^1.2.0"
       pascalcase "^0.1.1"
   
+  bignumber.js@4.1.0:
+    version "4.1.0"
+    resolved "http://47.97.71.190:4873/bignumber.js/-/bignumber.js-4.1.0.tgz#db6f14067c140bd46624815a7916c92d9b6c24b1"
+    integrity sha1-228UBnwUC9RmJIFaeRbJLZtsJLE=
+  
   binary-extensions@^1.0.0:
     version "1.13.1"
     resolved "http://47.97.71.190:4873/binary-extensions/-/binary-extensions-1.13.1.tgz#598afe54755b2868a5330d2aff9d4ebb53209b65"
     integrity sha1-WYr+VHVbKGilMw0q/51Ou1Mgm2U=
+  
+  bluebird@3.5.1:
+    version "3.5.1"
+    resolved "http://47.97.71.190:4873/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+    integrity sha1-2VUfnemPH82h5oPRfukaBgLuLrk=
   
   bluebird@^3.1.1, bluebird@^3.5.1:
     version "3.5.3"
@@ -365,6 +494,16 @@ Lockfile:
       snapdragon-node "^2.0.1"
       split-string "^3.0.2"
       to-regex "^3.0.1"
+  
+  bson@^1.1.1, bson@~1.1.1:
+    version "1.1.1"
+    resolved "http://47.97.71.190:4873/bson/-/bson-1.1.1.tgz#4330f5e99104c4e751e7351859e2d408279f2f13"
+    integrity sha1-QzD16ZEExOdR5zUYWeLUCCefLxM=
+  
+  buffer-equal-constant-time@1.0.1:
+    version "1.0.1"
+    resolved "http://47.97.71.190:4873/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz#f8e71132f7ffe6e01a5c9697a4c6f3e48d5cc819"
+    integrity sha1-+OcRMvf/5uAaXJaXpMbz5I1cyBk=
   
   buffer-from@^1.0.0:
     version "1.1.1"
@@ -456,6 +595,11 @@ Lockfile:
       define-property "^0.2.5"
       isobject "^3.0.0"
       static-extend "^0.1.1"
+  
+  clean-stack@^1.0.0:
+    version "1.3.0"
+    resolved "http://47.97.71.190:4873/clean-stack/-/clean-stack-1.3.0.tgz#9e821501ae979986c46b1d66d2d432db2fd4ae31"
+    integrity sha1-noIVAa6XmYbEax1m0tQy2y/UrjE=
   
   cli-boxes@^1.0.0:
     version "1.0.0"
@@ -583,6 +727,11 @@ Lockfile:
     resolved "http://47.97.71.190:4873/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
     integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
   
+  core-js@^2.5.3:
+    version "2.6.9"
+    resolved "http://47.97.71.190:4873/core-js/-/core-js-2.6.9.tgz#6b4b214620c834152e179323727fc19741b084f2"
+    integrity sha1-a0shRiDINBUuF5Mjcn/Bl0GwhPI=
+  
   core-util-is@~1.0.0:
     version "1.0.2"
     resolved "http://47.97.71.190:4873/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -609,6 +758,13 @@ Lockfile:
     resolved "http://47.97.71.190:4873/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
     integrity sha1-ojD2T1aDEOFJgAmUB5DsmVRbyn4=
   
+  debug@3.1.0, debug@~3.1.0:
+    version "3.1.0"
+    resolved "http://47.97.71.190:4873/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+    integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
+    dependencies:
+      ms "2.0.0"
+  
   debug@^2.1.2, debug@^2.2.0, debug@^2.3.3:
     version "2.6.9"
     resolved "http://47.97.71.190:4873/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -629,13 +785,6 @@ Lockfile:
     integrity sha1-O3ImAlUQnGtYnO4FDx1RYTlmR5E=
     dependencies:
       ms "^2.1.1"
-  
-  debug@~3.1.0:
-    version "3.1.0"
-    resolved "http://47.97.71.190:4873/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
-    integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
-    dependencies:
-      ms "2.0.0"
   
   decode-uri-component@^0.2.0:
     version "0.2.0"
@@ -710,6 +859,13 @@ Lockfile:
     version "0.1.4"
     resolved "http://47.97.71.190:4873/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
     integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
+  
+  ecdsa-sig-formatter@1.0.11:
+    version "1.0.11"
+    resolved "http://47.97.71.190:4873/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz#ae0f0fa2d85045ef14a817daa3ce9acd0489e5bf"
+    integrity sha1-rg8PothQRe8UqBfao86azQSJ5b8=
+    dependencies:
+      safe-buffer "^5.0.1"
   
   editorconfig@^0.15.2:
     version "0.15.3"
@@ -943,6 +1099,21 @@ Lockfile:
     resolved "http://47.97.71.190:4873/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
     integrity sha1-/7cD4QZuig7qpMi4C6klPu77+wA=
   
+  graphql-extensions@^0.0.x, graphql-extensions@~0.0.9:
+    version "0.0.10"
+    resolved "http://47.97.71.190:4873/graphql-extensions/-/graphql-extensions-0.0.10.tgz#34bdb2546d43f6a5bc89ab23c295ec0466c6843d"
+    integrity sha1-NL2yVG1D9qW8iasjwpXsBGbGhD0=
+    dependencies:
+      core-js "^2.5.3"
+      source-map-support "^0.5.1"
+  
+  graphql-server-koa@^1.4.1:
+    version "1.4.1"
+    resolved "http://47.97.71.190:4873/graphql-server-koa/-/graphql-server-koa-1.4.1.tgz#10377979bb0818176880f43d7dffa3bf35df81b0"
+    integrity sha1-EDd5ebsIGBdogPQ9ff+jvzXfgbA=
+    dependencies:
+      apollo-server-koa "^1.4.0"
+  
   has-flag@^3.0.0:
     version "3.0.0"
     resolved "http://47.97.71.190:4873/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
@@ -1048,6 +1219,11 @@ Lockfile:
     version "0.1.4"
     resolved "http://47.97.71.190:4873/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
     integrity sha1-khi5srkoojixPcT7a21XbyMUU+o=
+  
+  indent-string@^3.0.0:
+    version "3.2.0"
+    resolved "http://47.97.71.190:4873/indent-string/-/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
+    integrity sha1-Sl/W0nzDMvN+VBmlBNu4NxBckok=
   
   inflation@^2.0.0:
     version "2.0.0"
@@ -1294,6 +1470,59 @@ Lockfile:
     optionalDependencies:
       graceful-fs "^4.1.6"
   
+  jsonwebtoken@8.3.0:
+    version "8.3.0"
+    resolved "http://47.97.71.190:4873/jsonwebtoken/-/jsonwebtoken-8.3.0.tgz#056c90eee9a65ed6e6c72ddb0a1d325109aaf643"
+    integrity sha1-BWyQ7ummXtbmxy3bCh0yUQmq9kM=
+    dependencies:
+      jws "^3.1.5"
+      lodash.includes "^4.3.0"
+      lodash.isboolean "^3.0.3"
+      lodash.isinteger "^4.0.4"
+      lodash.isnumber "^3.0.3"
+      lodash.isplainobject "^4.0.6"
+      lodash.isstring "^4.0.1"
+      lodash.once "^4.0.0"
+      ms "^2.1.1"
+  
+  jsonwebtoken@^8.5.1:
+    version "8.5.1"
+    resolved "http://47.97.71.190:4873/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
+    integrity sha1-AOceC431TCEhofJhN98igGc7zA0=
+    dependencies:
+      jws "^3.2.2"
+      lodash.includes "^4.3.0"
+      lodash.isboolean "^3.0.3"
+      lodash.isinteger "^4.0.4"
+      lodash.isnumber "^3.0.3"
+      lodash.isplainobject "^4.0.6"
+      lodash.isstring "^4.0.1"
+      lodash.once "^4.0.0"
+      ms "^2.1.1"
+      semver "^5.6.0"
+  
+  jwa@^1.4.1:
+    version "1.4.1"
+    resolved "http://47.97.71.190:4873/jwa/-/jwa-1.4.1.tgz#743c32985cb9e98655530d53641b66c8645b039a"
+    integrity sha1-dDwymFy56YZVUw1TZBtmyGRbA5o=
+    dependencies:
+      buffer-equal-constant-time "1.0.1"
+      ecdsa-sig-formatter "1.0.11"
+      safe-buffer "^5.0.1"
+  
+  jws@^3.1.5, jws@^3.2.2:
+    version "3.2.2"
+    resolved "http://47.97.71.190:4873/jws/-/jws-3.2.2.tgz#001099f3639468c9414000e99995fa52fb478304"
+    integrity sha1-ABCZ82OUaMlBQADpmZX6UvtHgwQ=
+    dependencies:
+      jwa "^1.4.1"
+      safe-buffer "^5.0.1"
+  
+  kareem@2.3.0:
+    version "2.3.0"
+    resolved "http://47.97.71.190:4873/kareem/-/kareem-2.3.0.tgz#ef33c42e9024dce511eeaf440cd684f3af1fc769"
+    integrity sha1-7zPELpAk3OUR7q9EDNaE868fx2k=
+  
   keygrip@~1.0.3:
     version "1.0.3"
     resolved "http://47.97.71.190:4873/keygrip/-/keygrip-1.0.3.tgz#399d709f0aed2bab0a059e0cdd3a5023a053e1dc"
@@ -1357,6 +1586,15 @@ Lockfile:
     resolved "http://47.97.71.190:4873/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
     integrity sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
   
+  koa-jwt@*, koa-jwt@^3.5.1:
+    version "3.5.1"
+    resolved "http://47.97.71.190:4873/koa-jwt/-/koa-jwt-3.5.1.tgz#0b20e45c3a0f93c9a8df42f1057b3ae004e0f849"
+    integrity sha1-CyDkXDoPk8mo30LxBXs64ATg+Ek=
+    dependencies:
+      jsonwebtoken "8.3.0"
+      koa-unless "1.0.7"
+      p-any "1.1.0"
+  
   koa-router@^7.4.0:
     version "7.4.0"
     resolved "http://47.97.71.190:4873/koa-router/-/koa-router-7.4.0.tgz#aee1f7adc02d5cb31d7d67465c9eacc825e8c5e0"
@@ -1386,6 +1624,11 @@ Lockfile:
     dependencies:
       debug "^3.1.0"
       koa-send "^5.0.0"
+  
+  koa-unless@1.0.7:
+    version "1.0.7"
+    resolved "http://47.97.71.190:4873/koa-unless/-/koa-unless-1.0.7.tgz#b9df375e2b4da3043918d48622520c2c0b79f032"
+    integrity sha1-ud83XitNowQ5GNSGIlIMLAt58DI=
   
   koa-views@^6.1.5:
     version "6.2.0"
@@ -1436,6 +1679,46 @@ Lockfile:
     dependencies:
       package-json "^4.0.0"
   
+  lodash.includes@^4.3.0:
+    version "4.3.0"
+    resolved "http://47.97.71.190:4873/lodash.includes/-/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
+    integrity sha1-YLuYqHy5I8aMoeUTJUgzFISfVT8=
+  
+  lodash.isboolean@^3.0.3:
+    version "3.0.3"
+    resolved "http://47.97.71.190:4873/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz#6c2e171db2a257cd96802fd43b01b20d5f5870f6"
+    integrity sha1-bC4XHbKiV82WgC/UOwGyDV9YcPY=
+  
+  lodash.isinteger@^4.0.4:
+    version "4.0.4"
+    resolved "http://47.97.71.190:4873/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz#619c0af3d03f8b04c31f5882840b77b11cd68343"
+    integrity sha1-YZwK89A/iwTDH1iChAt3sRzWg0M=
+  
+  lodash.isnumber@^3.0.3:
+    version "3.0.3"
+    resolved "http://47.97.71.190:4873/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz#3ce76810c5928d03352301ac287317f11c0b1ffc"
+    integrity sha1-POdoEMWSjQM1IwGsKHMX8RwLH/w=
+  
+  lodash.isplainobject@^4.0.6:
+    version "4.0.6"
+    resolved "http://47.97.71.190:4873/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+    integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
+  
+  lodash.isstring@^4.0.1:
+    version "4.0.1"
+    resolved "http://47.97.71.190:4873/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
+    integrity sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=
+  
+  lodash.once@^4.0.0:
+    version "4.1.1"
+    resolved "http://47.97.71.190:4873/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
+    integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
+  
+  lodash@^4.17.11:
+    version "4.17.15"
+    resolved "http://47.97.71.190:4873/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+    integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
+  
   lowercase-keys@^1.0.0:
     version "1.0.1"
     resolved "http://47.97.71.190:4873/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
@@ -1477,6 +1760,11 @@ Lockfile:
     version "0.3.0"
     resolved "http://47.97.71.190:4873/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
     integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
+  
+  memory-pager@^1.0.2:
+    version "1.5.0"
+    resolved "http://47.97.71.190:4873/memory-pager/-/memory-pager-1.5.0.tgz#d8751655d22d384682741c972f2c3d6dfa3e66b5"
+    integrity sha1-2HUWVdItOEaCdByXLyw9bfo+ZrU=
   
   methods@^1.0.1:
     version "1.1.2"
@@ -1561,15 +1849,89 @@ Lockfile:
     dependencies:
       minimist "0.0.8"
   
+  mongodb-core@3.2.7:
+    version "3.2.7"
+    resolved "http://47.97.71.190:4873/mongodb-core/-/mongodb-core-3.2.7.tgz#a8ef1fe764a192c979252dacbc600dc88d77e28f"
+    integrity sha1-qO8f52Shksl5JS2svGANyI134o8=
+    dependencies:
+      bson "^1.1.1"
+      require_optional "^1.0.1"
+      safe-buffer "^5.1.2"
+    optionalDependencies:
+      saslprep "^1.0.0"
+  
+  mongodb@3.2.7:
+    version "3.2.7"
+    resolved "http://47.97.71.190:4873/mongodb/-/mongodb-3.2.7.tgz#8ba149e4be708257cad0dea72aebb2bbb311a7ac"
+    integrity sha1-i6FJ5L5wglfK0N6nKuuyu7MRp6w=
+    dependencies:
+      mongodb-core "3.2.7"
+      safe-buffer "^5.1.2"
+  
+  mongoose-legacy-pluralize@1.0.2:
+    version "1.0.2"
+    resolved "http://47.97.71.190:4873/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
+    integrity sha1-O6n5H6UHtRhtOZ+0CFS/8Y+1Y+Q=
+  
+  mongoose@^5.6.10:
+    version "5.6.10"
+    resolved "http://47.97.71.190:4873/mongoose/-/mongoose-5.6.10.tgz#0758b7ae7d6f9654e994cc1aa41efc63e35e131b"
+    integrity sha1-B1i3rn1vllTplMwapB78Y+NeExs=
+    dependencies:
+      async "2.6.2"
+      bson "~1.1.1"
+      kareem "2.3.0"
+      mongodb "3.2.7"
+      mongodb-core "3.2.7"
+      mongoose-legacy-pluralize "1.0.2"
+      mpath "0.6.0"
+      mquery "3.2.1"
+      ms "2.1.2"
+      regexp-clone "1.0.0"
+      safe-buffer "5.1.2"
+      sift "7.0.1"
+      sliced "1.0.1"
+  
+  mpath@0.6.0:
+    version "0.6.0"
+    resolved "http://47.97.71.190:4873/mpath/-/mpath-0.6.0.tgz#aa922029fca4f0f641f360e74c5c1b6a4c47078e"
+    integrity sha1-qpIgKfyk8PZB82DnTFwbakxHB44=
+  
+  mquery@3.2.1:
+    version "3.2.1"
+    resolved "http://47.97.71.190:4873/mquery/-/mquery-3.2.1.tgz#8b059a49cdae0a8a9e804284ef64c2f58d3ac05d"
+    integrity sha1-iwWaSc2uCoqegEKE72TC9Y06wF0=
+    dependencies:
+      bluebird "3.5.1"
+      debug "3.1.0"
+      regexp-clone "^1.0.0"
+      safe-buffer "5.1.2"
+      sliced "1.0.1"
+  
   ms@2.0.0:
     version "2.0.0"
     resolved "http://47.97.71.190:4873/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
     integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
   
+  ms@2.1.2:
+    version "2.1.2"
+    resolved "http://47.97.71.190:4873/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
+    integrity sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
+  
   ms@^2.1.1:
     version "2.1.1"
     resolved "http://47.97.71.190:4873/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
     integrity sha1-MKWGTrPrsKZvLr5tcnrwagnYbgo=
+  
+  mysql@^2.16.0:
+    version "2.16.0"
+    resolved "http://47.97.71.190:4873/mysql/-/mysql-2.16.0.tgz#b23b22ab5de44fc2d5d32bd4f5af6653fc45e2ba"
+    integrity sha1-sjsiq13kT8LV0yvU9a9mU/xF4ro=
+    dependencies:
+      bignumber.js "4.1.0"
+      readable-stream "2.3.6"
+      safe-buffer "5.1.2"
+      sqlstring "2.3.1"
   
   mz@^2.4.0, mz@^2.7.0:
     version "2.7.0"
@@ -1775,10 +2137,24 @@ Lockfile:
       os-homedir "^1.0.0"
       os-tmpdir "^1.0.0"
   
+  p-any@1.1.0:
+    version "1.1.0"
+    resolved "http://47.97.71.190:4873/p-any/-/p-any-1.1.0.tgz#1d03835c7eed1e34b8e539c47b7b60d0d015d4e1"
+    integrity sha1-HQODXH7tHjS45TnEe3tg0NAV1OE=
+    dependencies:
+      p-some "^2.0.0"
+  
   p-finally@^1.0.0:
     version "1.0.0"
     resolved "http://47.97.71.190:4873/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
     integrity sha1-P7z7FbiZpEEjs0ttzBi3JDNqLK4=
+  
+  p-some@^2.0.0:
+    version "2.0.1"
+    resolved "http://47.97.71.190:4873/p-some/-/p-some-2.0.1.tgz#65d87c8b154edbcf5221d167778b6d2e150f6f06"
+    integrity sha1-Zdh8ixVO289SIdFnd4ttLhUPbwY=
+    dependencies:
+      aggregate-error "^1.0.0"
   
   package-json@^4.0.0:
     version "4.0.1"
@@ -1896,7 +2272,7 @@ Lockfile:
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
   
-  readable-stream@^2.0.2, readable-stream@^2.0.6:
+  readable-stream@2.3.6, readable-stream@^2.0.2, readable-stream@^2.0.6:
     version "2.3.6"
     resolved "http://47.97.71.190:4873/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
     integrity sha1-sRwn2IuP8fvgcGQ8+UsMea4bCq8=
@@ -1925,6 +2301,11 @@ Lockfile:
     dependencies:
       extend-shallow "^3.0.2"
       safe-regex "^1.1.0"
+  
+  regexp-clone@1.0.0, regexp-clone@^1.0.0:
+    version "1.0.0"
+    resolved "http://47.97.71.190:4873/regexp-clone/-/regexp-clone-1.0.0.tgz#222db967623277056260b992626354a04ce9bf63"
+    integrity sha1-Ii25Z2IydwViYLmSYmNUoEzpv2M=
   
   registry-auth-token@^3.0.1:
     version "3.4.0"
@@ -1955,6 +2336,19 @@ Lockfile:
     version "1.6.1"
     resolved "http://47.97.71.190:4873/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
     integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
+  
+  require_optional@^1.0.1:
+    version "1.0.1"
+    resolved "http://47.97.71.190:4873/require_optional/-/require_optional-1.0.1.tgz#4cf35a4247f64ca3df8c2ef208cc494b1ca8fc2e"
+    integrity sha1-TPNaQkf2TKPfjC7yCMxJSxyo/C4=
+    dependencies:
+      resolve-from "^2.0.0"
+      semver "^5.1.0"
+  
+  resolve-from@^2.0.0:
+    version "2.0.0"
+    resolved "http://47.97.71.190:4873/resolve-from/-/resolve-from-2.0.0.tgz#9480ab20e94ffa1d9e80a804c7ea147611966b57"
+    integrity sha1-lICrIOlP+h2egKgEx+oUdhGWa1c=
   
   resolve-path@^1.4.0:
     version "1.4.0"
@@ -1997,6 +2391,13 @@ Lockfile:
     version "2.1.2"
     resolved "http://47.97.71.190:4873/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
     integrity sha1-RPoWGwGHuVSd2Eu5GAL5vYOFzWo=
+  
+  saslprep@^1.0.0:
+    version "1.0.3"
+    resolved "http://47.97.71.190:4873/saslprep/-/saslprep-1.0.3.tgz#4c02f946b56cf54297e347ba1093e7acac4cf226"
+    integrity sha1-TAL5RrVs9UKX40e6EJPnrKxM8iY=
+    dependencies:
+      sparse-bitfield "^3.0.3"
   
   sax@^1.2.4:
     version "1.2.4"
@@ -2062,6 +2463,11 @@ Lockfile:
     resolved "http://47.97.71.190:4873/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
     integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
   
+  sift@7.0.1:
+    version "7.0.1"
+    resolved "http://47.97.71.190:4873/sift/-/sift-7.0.1.tgz#47d62c50b159d316f1372f8b53f9c10cd21a4b08"
+    integrity sha1-R9YsULFZ0xbxNy+LU/nBDNIaSwg=
+  
   sigmund@^1.0.1:
     version "1.0.1"
     resolved "http://47.97.71.190:4873/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
@@ -2071,6 +2477,11 @@ Lockfile:
     version "3.0.2"
     resolved "http://47.97.71.190:4873/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
     integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+  
+  sliced@1.0.1:
+    version "1.0.1"
+    resolved "http://47.97.71.190:4873/sliced/-/sliced-1.0.1.tgz#0b3a662b5d04c3177b1926bea82b03f837a2ef41"
+    integrity sha1-CzpmK10Ewxd7GSa+qCsD+Dei70E=
   
   snapdragon-node@^2.0.1:
     version "2.1.1"
@@ -2113,6 +2524,14 @@ Lockfile:
       source-map-url "^0.4.0"
       urix "^0.1.0"
   
+  source-map-support@^0.5.1:
+    version "0.5.13"
+    resolved "http://47.97.71.190:4873/source-map-support/-/source-map-support-0.5.13.tgz#31b24a9c2e73c2de85066c0feb7d44767ed52932"
+    integrity sha1-MbJKnC5zwt6FBmwP631Edn7VKTI=
+    dependencies:
+      buffer-from "^1.0.0"
+      source-map "^0.6.0"
+  
   source-map-support@^0.5.6:
     version "0.5.11"
     resolved "http://47.97.71.190:4873/source-map-support/-/source-map-support-0.5.11.tgz#efac2ce0800355d026326a0ca23e162aeac9a4e2"
@@ -2136,12 +2555,24 @@ Lockfile:
     resolved "http://47.97.71.190:4873/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
     integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
   
+  sparse-bitfield@^3.0.3:
+    version "3.0.3"
+    resolved "http://47.97.71.190:4873/sparse-bitfield/-/sparse-bitfield-3.0.3.tgz#ff4ae6e68656056ba4b3e792ab3334d38273ca11"
+    integrity sha1-/0rm5oZWBWuks+eSqzM004JzyhE=
+    dependencies:
+      memory-pager "^1.0.2"
+  
   split-string@^3.0.1, split-string@^3.0.2:
     version "3.1.0"
     resolved "http://47.97.71.190:4873/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
     integrity sha1-fLCd2jqGWFcFxks5pkZgOGguj+I=
     dependencies:
       extend-shallow "^3.0.0"
+  
+  sqlstring@2.3.1:
+    version "2.3.1"
+    resolved "http://47.97.71.190:4873/sqlstring/-/sqlstring-2.3.1.tgz#475393ff9e91479aea62dcaf0ca3d14983a7fb40"
+    integrity sha1-R1OT/56RR5rqYtyvDKPRSYOn+0A=
   
   static-extend@^0.1.1:
     version "0.1.2"

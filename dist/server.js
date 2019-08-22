@@ -99,11 +99,11 @@ class Server {
         // 解析formdata body 上传文件
         this.app.use(koa_body_1.default({
             multipart: true,
-            encoding: 'gzip',
+            // encoding: 'gzip',
             formidable: {
                 uploadDir: path_1.default.join(__dirname, 'upload/'),
                 keepExtensions: true,
-                maxFieldsSize: 2 * 1024 * 1024,
+                maxFieldsSize: 20 * 1024 * 1024,
                 onFileBegin: (name, file) => {
                     // 文件上传前的设置
                     // console.log(`name: ${name}`);
@@ -115,7 +115,7 @@ class Server {
         this.app.use(koa_jwt_1.default({
             secret: config.secret,
         }).unless({
-            path: [/^\/api\/user\/login/, /^\/api\/user\/register/, /^((?!\/api).)*$/],
+            path: [/^\/api\/user\/login/, /^\/api\/user\/register/, /^\/api\/user\/graphiql/, /^\/api\/user\/graphql/, /^((?!\/api).)*$/],
         }));
         //嵌套路由
         this.app.use(this.router.routes());

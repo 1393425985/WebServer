@@ -2,25 +2,33 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const koa_router_1 = tslib_1.__importDefault(require("koa-router"));
-const graphql_server_koa_1 = require("graphql-server-koa");
-const schema_1 = tslib_1.__importDefault(require("../graphql/schema"));
-const userControler = tslib_1.__importStar(require("../mongodb/user"));
+const jsonwebtoken_1 = tslib_1.__importDefault(require("jsonwebtoken"));
+const userModel = tslib_1.__importStar(require("../mysql/user"));
+const config = tslib_1.__importStar(require("../utils/config"));
 const router = new koa_router_1.default();
+const createToken = (info) => {
+    return jsonwebtoken_1.default.sign({
+        nickname: info.nickname,
+        id: info.id,
+    }, config.secret, { expiresIn: '2h' });
+};
 router.post('/register', async (ctx) => {
     const params = ctx.request.body;
-    if (!(params.tel || params.email) || !params.pwd) {
+    if (!params.tel || !params.password) {
         return (ctx.body = {
             success: false,
             message: '参数不合法',
         });
     }
-    const result = await userControler.save(Object.assign({
-        pwd: params.pwd,
-    }, params.tel ? { tel: params.tel } : { email: params.email }));
-    if (result) {
-        const token = result.createToken();
+    const result = await userModel.addOne({
+        tel: params.tel,
+        password: params.password,
+        nickname: '未命名'
+    });
+    if (result !== null) {
+        const token = createToken(result);
         ctx.body = {
-            data: { token, info: result.token2info(token) },
+            data: { token, info: jsonwebtoken_1.default.decode(token) },
             msg: '登录成功',
         };
     }
@@ -40,19 +48,20 @@ router.post('/login', async (ctx) => {
     //   httpOnly: true, // 禁止js获取
     // });
     const params = ctx.request.body;
-    if (!(params.tel || params.email) || !params.pwd) {
+    if (!params.id || !params.password) {
         return (ctx.body = {
             success: false,
             message: '参数不合法',
         });
     }
-    const result = await userControler.findOne(Object.assign({
-        pwd: params.pwd,
-    }, params.tel ? { tel: params.tel } : { email: params.email }));
-    if (result) {
-        const token = result.createToken();
+    const result = await userModel.findOne({
+        id: params.id,
+        password: params.password,
+    });
+    if (result !== null) {
+        const token = createToken(result);
         ctx.body = {
-            data: { token, info: result.token2info(token) },
+            data: { token, info: jsonwebtoken_1.default.decode(token) },
             msg: '登录成功',
         };
     }
@@ -80,11 +89,11 @@ router.get('/userInfo', ctx => {
 });
 router.post('/update', async (ctx) => {
     const params = ctx.request.body;
-    const result = await userControler.updateOne(ctx.state.user.id, params);
-    if (result) {
-        const token = result.createToken();
+    const result = await userModel.updateOne(params, { id: ctx.state.user.id });
+    if (result !== null) {
+        const token = createToken(result);
         ctx.body = {
-            data: { token, info: result.token2info(token) },
+            data: { token, info: jsonwebtoken_1.default.decode(token) },
             msg: '更新成功',
         };
     }
@@ -95,14 +104,5 @@ router.post('/update', async (ctx) => {
         };
     }
 });
-router.post('/graphql', async (ctx, next) => {
-    await graphql_server_koa_1.graphqlKoa({ schema: schema_1.default })(ctx, next); // 使用schema
-})
-    .get('/graphql', async (ctx, next) => {
-    await graphql_server_koa_1.graphqlKoa({ schema: schema_1.default })(ctx, next); // 使用schema
-})
-    .get('/graphiql', async (ctx, next) => {
-    await graphql_server_koa_1.graphiqlKoa({ endpointURL: '/api/user/graphql' })(ctx); // 重定向到graphiql路由
-});
 module.exports = router;
-//# sourceMappingURL=user.js.map
+//# sourceMappingURL=user.mysql.js.map
