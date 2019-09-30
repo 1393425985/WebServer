@@ -11,5 +11,6 @@ declare namespace UserType {
         name: Model['name'];
         tel: Model['tel'];
         email: Model['email'];
+        pwd: Model['pwd'];
     }
 }

@@ -54,6 +54,7 @@ UserSchema.methods.createToken = function() {
             name: this.name,
             tel: this.tel,
             email: this.email,
+            pwd: this.pwd,
         } as UserType.Jwt,
         config.secret,
         { expiresIn: '2h' },
