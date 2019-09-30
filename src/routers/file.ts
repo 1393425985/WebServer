@@ -1,3 +1,4 @@
+/// <reference types="../mongodb/types/user" />
 import koaRouter from 'koa-router';
 import path from 'path';
 import fs from 'fs';
@@ -14,7 +15,7 @@ const router = new koaRouter();
 
 //单文件上传
 router.post('/uploadfile', async (ctx, next) => {
-    const user:UserTypes.Jwt = ctx.state.user;
+    const user:UserType.Jwt = ctx.state.user;
     const file = ctx.request.files.file; // 获取上传文件
     // 创建可读流
     const reader = fs.createReadStream(file.path);
