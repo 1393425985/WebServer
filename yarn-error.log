@@ -1,30 +1,21 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe D:\Program Files (x86)\Yarn\bin\yarn.js add @types/graphql-server-koa
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
 
 PATH: 
-  D:\soft\xftp\;D:\soft\xshell\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python36\;C:\Python36\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\Python36;D:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\wkhtmltopdf\bin;D:\Program Files\jdk\bin;D:\Program Files\jdk\jre\bin;C:\Users\Administrator\AppData\Roaming\npm;D:\Program Files\Git\cmd;D:\Program Files\OpenSSH\bin;D:\Program Files\TortoiseSVN\bin;D:\Program Files (x86)\Yarn\bin\;C:\Program Files (x86)\Windows Kits\8.1\bin\x86;D:\Program Files\TortoiseGit\bin;D:\soft\Microsoft VS Code Insiders\bin;D:\Program Files\nodejs\;C:\Ruby25-x64\bin;C:\Python36\Scripts\;C:\Python36\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;D:\soft\Microsoft VS Code Insiders\bin;C:\Users\Administrator\AppData\Local\atom\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Local\Yarn\bin;D:\soft\Apache-Subversion-1.11.1\bin;C:\Users\Administrator\AppData\Roaming\npm
+  D:\waresoft\xftp\;D:\waresoft\xshell\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\Users\Bill\AppData\Roaming\npm;C:\Program Files\Git\cmd;C:\Program Files\OpenSSH\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Users\Bill\AppData\Local\Microsoft\WindowsApps;C:\Users\Bill\AppData\Roaming\npm;D:\waresoft\Microsoft VS Code\bin;C:\Users\Bill\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Bill\AppData\Local\Yarn\bin;D:\waresoft\w64\mingw64\bin;
 
 Yarn version: 
-  1.12.1
+  1.12.3
 
 Node version: 
-  10.16.0
+  10.3.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: http://47.97.71.190:4873/@types%2fgraphql-server-koa: no such package available
-      at Request.params.callback [as _callback] (D:\Program Files (x86)\Yarn\lib\cli.js:62248:18)
-      at Request.self.callback (D:\Program Files (x86)\Yarn\lib\cli.js:124547:22)
-      at Request.emit (events.js:198:13)
-      at Request.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:125519:10)
-      at Request.emit (events.js:198:13)
-      at IncomingMessage.<anonymous> (D:\Program Files (x86)\Yarn\lib\cli.js:125441:12)
-      at Object.onceWrapper (events.js:286:20)
-      at IncomingMessage.emit (events.js:203:15)
-      at endReadableNT (_stream_readable.js:1129:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: http://47.97.71.190:4873/core-js/-/core-js-2.6.9.tgz: unexpected end of file
+      at Zlib.zlibOnError [as onerror] (zlib.js:153:17)
 
 npm manifest: 
   {
@@ -47,6 +38,7 @@ npm manifest:
     "license": "ISC",
     "dependencies": {
       "ejs": "^2.6.1",
+      "graphql": "^14.4.2",
       "graphql-server-koa": "^1.4.1",
       "jsonwebtoken": "^8.5.1",
       "koa": "^2.6.2",
@@ -60,6 +52,7 @@ npm manifest:
       "ws": "^6.2.1"
     },
     "devDependencies": {
+      "@types/graphql": "^14.2.3",
       "@types/jsonwebtoken": "^8.3.2",
       "@types/koa": "^2.0.48",
       "@types/koa-jwt": "^3.3.0",
@@ -151,6 +144,11 @@ Lockfile:
     dependencies:
       "@types/events" "*"
       "@types/node" "*"
+  
+  "@types/graphql@^14.2.3":
+    version "14.2.3"
+    resolved "http://47.97.71.190:4873/@types%2fgraphql/-/graphql-14.2.3.tgz#cfc6420a67eb20420786f90112357921974593b9"
+    integrity sha1-z8ZCCmfrIEIHhvkBEjV5IZdFk7k=
   
   "@types/http-assert@*":
     version "1.4.0"
@@ -1114,6 +1112,13 @@ Lockfile:
     dependencies:
       apollo-server-koa "^1.4.0"
   
+  graphql@^14.4.2:
+    version "14.4.2"
+    resolved "http://47.97.71.190:4873/graphql/-/graphql-14.4.2.tgz#553a7d546d524663eda49ed6df77577be3203ae3"
+    integrity sha1-VTp9VG1SRmPtpJ7W33dXe+MgOuM=
+    dependencies:
+      iterall "^1.2.2"
+  
   has-flag@^3.0.0:
     version "3.0.0"
     resolved "http://47.97.71.190:4873/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
@@ -1451,6 +1456,11 @@ Lockfile:
     version "3.0.1"
     resolved "http://47.97.71.190:4873/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
     integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+  
+  iterall@^1.2.2:
+    version "1.2.2"
+    resolved "http://47.97.71.190:4873/iterall/-/iterall-1.2.2.tgz#92d70deb8028e0c39ff3164fdbf4d8b088130cd7"
+    integrity sha1-ktcN64Ao4MOf8xZP2/TYsIgTDNc=
   
   js-beautify@^1.6.12:
     version "1.9.1"

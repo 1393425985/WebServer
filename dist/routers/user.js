@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const koa_router_1 = tslib_1.__importDefault(require("koa-router"));
 const graphql_server_koa_1 = require("graphql-server-koa");
+const jsonwebtoken_1 = tslib_1.__importDefault(require("jsonwebtoken"));
 const schema_1 = tslib_1.__importDefault(require("../graphql/schema"));
 const userControler = tslib_1.__importStar(require("../mongodb/user"));
 const router = new koa_router_1.default();
@@ -39,12 +40,19 @@ router.post('/login', async (ctx) => {
     //   domain: '0.0.0.0', // 域
     //   httpOnly: true, // 禁止js获取
     // });
-    const params = ctx.request.body;
-    if (!(params.tel || params.email) || !params.pwd) {
+    let params = ctx.request.body;
+    if (params.token || ((params.tel || params.email) && params.pwd)) {
+    }
+    else {
         return (ctx.body = {
             success: false,
             message: '参数不合法',
         });
+    }
+    if (params.token) {
+        const info = jsonwebtoken_1.default.decode(params.token);
+        params.tel = info.tel;
+        params.pwd = info.pwd;
     }
     const result = await userControler.findOne(Object.assign({
         pwd: params.pwd,
@@ -95,7 +103,8 @@ router.post('/update', async (ctx) => {
         };
     }
 });
-router.post('/graphql', async (ctx, next) => {
+router
+    .post('/graphql', async (ctx, next) => {
     await graphql_server_koa_1.graphqlKoa({ schema: schema_1.default })(ctx, next); // 使用schema
 })
     .get('/graphql', async (ctx, next) => {

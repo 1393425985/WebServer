@@ -66,7 +66,7 @@ names.forEach(name => {
   var tarPath = path.join(__dirname, 'dist', name);
 
   fs.stat(srcPath, function(err, stats) {
-    if (stats.isDirectory()) {
+    if (stats && stats.isDirectory()) {
       fs.mkdir(tarPath, function(err) {
         if (err) {
           console.log(err);

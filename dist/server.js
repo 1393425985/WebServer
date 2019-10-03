@@ -32,10 +32,33 @@ class Server {
             //   ctx.response.redirect(url);
             await ctx.render('index', {});
         });
+        this.router.get('/user', async (ctx) => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/user/:url', async (ctx) => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/main', async (ctx) => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/food', async (ctx) => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/exception/:status', async (ctx) => {
+            await ctx.render('index', {});
+        });
+        // this.router.get('/food', async ctx => {
+        //     await ctx.render('index', {});
+        // });
+        // this.router.get('/food', async ctx => {
+        //     await ctx.render('index', {});
+        // });
         const routers = fs_1.default.readdirSync(__dirname + '/routers');
         routers.forEach(element => {
             if (/\.(t|j)s$/.test(element)) {
-                const module = require(__dirname + '/routers/' + element);
+                const module = require(__dirname +
+                    '/routers/' +
+                    element);
                 this.router.use('/api/' + element.replace(/\.(t|j)s$/, ''), module.routes(), module.allowedMethods());
             }
         });
@@ -73,7 +96,8 @@ class Server {
                 ctx.response.status = err.statusCode || err.status || 500;
                 let msg = err.message;
                 if (err.status === 401) {
-                    msg = 'Protected resource, use Authorization header to get access\n';
+                    msg =
+                        'Protected resource, use Authorization header to get access\n';
                 }
                 ctx.response.body = {
                     code: -1,
@@ -93,7 +117,9 @@ class Server {
                     message: '',
                     data: null,
                     success: true,
-                }, ctx.body || {});
+                }, (ctx.body && typeof ctx.body === 'string'
+                    ? JSON.parse(ctx.body)
+                    : ctx.body) || {});
             }
         });
         // 解析formdata body 上传文件
@@ -115,7 +141,13 @@ class Server {
         this.app.use(koa_jwt_1.default({
             secret: config.secret,
         }).unless({
-            path: [/^\/api\/user\/login/, /^\/api\/user\/register/, /^\/api\/user\/graphiql/, /^\/api\/user\/graphql/, /^((?!\/api).)*$/],
+            path: [
+                /^\/api\/user\/login/,
+                /^\/api\/user\/register/,
+                /^\/api\/user\/graphiql/,
+                /^\/api\/user\/graphql/,
+                /^((?!\/api).)*$/,
+            ],
         }));
         //嵌套路由
         this.app.use(this.router.routes());
@@ -126,7 +158,7 @@ class Server {
             await next();
         });
         //koa静态文件中间件
-        this.app.use(koa_static_1.default(path_1.default.join(__dirname, './static')));
+        this.app.use(koa_static_1.default(path_1.default.join(__dirname, './www')));
     }
     initEvent() {
         this.app.on('error', err => {

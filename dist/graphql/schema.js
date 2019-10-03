@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
 const graphql_1 = require("graphql");
 // 引入 type
-const user_1 = require("./user");
+const user = tslib_1.__importStar(require("./user"));
 // 建立 schema
 exports.default = new graphql_1.GraphQLSchema({
     query: new graphql_1.GraphQLObjectType({
         name: 'Queries',
-        fields: {
-            users: user_1.users,
-        },
+        fields: Object.assign({}, user),
     }),
 });
 //# sourceMappingURL=schema.js.map

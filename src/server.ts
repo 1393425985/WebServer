@@ -33,6 +33,27 @@ class Server {
             //   ctx.response.redirect(url);
             await ctx.render('index', {});
         });
+        this.router.get('/user', async ctx => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/user/:url', async ctx => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/main', async ctx => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/food', async ctx => {
+            await ctx.render('index', {});
+        });
+        this.router.get('/exception/:status', async ctx => {
+            await ctx.render('index', {});
+        });
+        // this.router.get('/food', async ctx => {
+        //     await ctx.render('index', {});
+        // });
+        // this.router.get('/food', async ctx => {
+        //     await ctx.render('index', {});
+        // });
         const routers = fs.readdirSync(__dirname + '/routers');
         routers.forEach(element => {
             if (/\.(t|j)s$/.test(element)) {
@@ -152,7 +173,7 @@ class Server {
         });
 
         //koa静态文件中间件
-        this.app.use(koaStatic(path.join(__dirname, './static')));
+        this.app.use(koaStatic(path.join(__dirname, './www')));
     }
     private initEvent() {
         this.app.on('error', err => {
