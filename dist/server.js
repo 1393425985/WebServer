@@ -158,7 +158,9 @@ class Server {
             await next();
         });
         //koa静态文件中间件
-        this.app.use(koa_static_1.default([path_1.default.join(__dirname, './www'), path_1.default.join(__dirname, './static'), path_1.default.join(__dirname, './upload')]));
+        this.app.use(koa_static_1.default(path_1.default.join(__dirname, './www')));
+        this.app.use(koa_static_1.default(path_1.default.join(__dirname, './static')));
+        this.app.use(koa_static_1.default(path_1.default.join(__dirname, './upload')));
     }
     initEvent() {
         this.app.on('error', err => {
