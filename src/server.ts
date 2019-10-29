@@ -4,6 +4,7 @@ import koaStatic from 'koa-static';
 import koaBody from 'koa-body';
 import views from 'koa-views';
 import koajwt from 'koa-jwt';
+import compress from 'koa-compress';
 import WebSocket from 'ws';
 import ejs from 'ejs';
 import url from 'url';
@@ -69,6 +70,8 @@ class Server {
         });
     }
     private initMiddle() {
+        // gzip
+        this.app.use(compress({ threshold: 2048 }));
         // logger
         this.app.use(async (ctx, next) => {
             await next();
@@ -173,15 +176,10 @@ class Server {
         });
 
         //koa静态文件中间件
-        this.app.use(
-            koaStatic(path.join(__dirname, './www')),
-        );
-        this.app.use(
-            koaStatic(path.join(__dirname, './static')),
-        );
-        this.app.use(
-            koaStatic(path.join(__dirname, './upload')),
-        );
+        this.app.use(koaStatic(path.join(__dirname, './www')));
+        this.app.use(koaStatic(path.join(__dirname, './static')));
+        this.app.use(koaStatic(path.join(__dirname, './upload')));
+
     }
     private initEvent() {
         this.app.on('error', err => {
