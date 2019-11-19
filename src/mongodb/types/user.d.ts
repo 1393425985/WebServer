@@ -1,5 +1,6 @@
 declare namespace UserType {
     export interface Model {
+        _id: any;
         name: string;
         email: string;
         tel: string;

@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
+const mongodb_1 = require("mongodb");
 const user_1 = require("./schema/user");
 const mongo_1 = tslib_1.__importDefault(require("./mongo"));
 // 新增
 exports.save = async (info) => mongo_1.default().then(async () => {
-    const user = new user_1.User(info);
+    const user = new user_1.User(Object.assign({ _id: new mongodb_1.ObjectID() }, info));
     const saveUser = await user.save();
     return saveUser;
 });

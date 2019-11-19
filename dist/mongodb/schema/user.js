@@ -6,6 +6,10 @@ const jsonwebtoken_1 = tslib_1.__importDefault(require("jsonwebtoken"));
 const config = tslib_1.__importStar(require("../../utils/config"));
 const ObjectId = mongoose_1.Schema.Types.ObjectId;
 exports.UserSchema = new mongoose_1.Schema({
+    _id: {
+        type: ObjectId,
+        required: true,
+    },
     name: {
         type: String,
         default: '未命名',
@@ -45,5 +49,5 @@ exports.UserSchema.methods.createToken = function () {
 exports.UserSchema.methods.token2info = function (token) {
     return jsonwebtoken_1.default.decode(token);
 };
-exports.User = mongoose_1.model('user', exports.UserSchema);
+exports.User = mongoose_1.model('users', exports.UserSchema, 'users');
 //# sourceMappingURL=user.js.map

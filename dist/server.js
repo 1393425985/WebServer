@@ -7,6 +7,7 @@ const koa_static_1 = tslib_1.__importDefault(require("koa-static"));
 const koa_body_1 = tslib_1.__importDefault(require("koa-body"));
 const koa_views_1 = tslib_1.__importDefault(require("koa-views"));
 const koa_jwt_1 = tslib_1.__importDefault(require("koa-jwt"));
+const koa_compress_1 = tslib_1.__importDefault(require("koa-compress"));
 const ws_1 = tslib_1.__importDefault(require("ws"));
 const fs_1 = tslib_1.__importDefault(require("fs"));
 const path_1 = tslib_1.__importDefault(require("path"));
@@ -64,6 +65,8 @@ class Server {
         });
     }
     initMiddle() {
+        // gzip
+        this.app.use(koa_compress_1.default({ threshold: 2048 }));
         // logger
         this.app.use(async (ctx, next) => {
             await next();

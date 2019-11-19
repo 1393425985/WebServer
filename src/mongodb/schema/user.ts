@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import * as config from '../../utils/config';
 const ObjectId = Schema.Types.ObjectId;
 
-export interface UserModel extends Partial<UserType.Model>, Document {
+export interface UserModel extends UserType.Model, Document {
     createToken: () => string;
     token2info: (
         token: string,
@@ -15,6 +15,10 @@ export interface UserModel extends Partial<UserType.Model>, Document {
 }
 
 export const UserSchema: Schema = new Schema({
+    _id: {
+        type: ObjectId,
+        required: true,
+    },
     name: {
         type: String,
         default: '未命名',
@@ -23,7 +27,7 @@ export const UserSchema: Schema = new Schema({
         type: String,
         default: '',
     },
-    tel:  {
+    tel: {
         type: String,
         default: '',
     },
@@ -64,4 +68,8 @@ UserSchema.methods.token2info = function(token) {
     return jwt.decode(token);
 };
 
-export const User: Model<UserModel> = model<UserModel>('user', UserSchema);
+export const User: Model<UserModel> = model<UserModel>(
+    'users',
+    UserSchema,
+    'users',
+);
