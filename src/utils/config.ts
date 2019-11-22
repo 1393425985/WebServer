@@ -13,3 +13,6 @@ export const mongodb = {
   username: 'web',
   password: '123456',
 }
+export const img = {
+  host: `http://${mainHost}/`
+}

@@ -1,3 +1,5 @@
+/// <reference types="../mongodb/types/user" />
+/// <reference types="../mongodb/types/cacheData" />
 import koaRouter from 'koa-router';
 import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa';
 import { ObjectId } from 'mongodb';

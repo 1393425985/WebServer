@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cwebp": "^2.0.4",
     "ejs": "^2.6.1",
     "graphql": "^14.4.2",
     "graphql-server-koa": "^1.4.1",
