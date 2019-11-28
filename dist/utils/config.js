@@ -15,4 +15,7 @@ exports.mongodb = {
     username: 'web',
     password: '123456',
 };
+exports.img = {
+    host: `http://${mainHost}/`
+};
 //# sourceMappingURL=config.js.map

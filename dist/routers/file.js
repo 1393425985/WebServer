@@ -19,13 +19,21 @@ router.post('/uploadfile', async (ctx, next) => {
     const user = ctx.state.user;
     const file = ctx.request.files.file; // 获取上传文件
     // 创建可读流
+    // fs.rename(filePath, filePath, (err) => {
+    //     if (err) {
+    //         return;
+    //     } else {
+    //         // If enable webp, convert the image to webp but ignore the result.
+    //         WebPConverter.convertToWebP(filePath, filePath + '.webp');
+    //     }
+    // });
     const reader = fs_1.default.createReadStream(file.path);
-    let filePath = path_1.default.join(__dirname, 'upload') + file.name;
+    let filePath = path_1.default.join(__dirname, 'upload', file.name);
     // 创建可写流
     const upStream = fs_1.default.createWriteStream(filePath);
     // 可读流通过管道写入可写流
     reader.pipe(upStream);
-    return ctx.body = "上传成功！";
+    return (ctx.body = '上传成功！');
 });
 router.post('/uploadfiles', async (ctx, next) => {
     // 上传多个文件
@@ -40,7 +48,7 @@ router.post('/uploadfiles', async (ctx, next) => {
     //   // 可读流通过管道写入可写流
     //   reader.pipe(upStream);
     // }
-    return ctx.body = "上传成功！";
+    return (ctx.body = '上传成功！');
 });
 module.exports = router;
 //# sourceMappingURL=file.js.map

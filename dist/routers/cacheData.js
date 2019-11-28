@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
+/// <reference types="../mongodb/types/user" />
+/// <reference types="../mongodb/types/cacheData" />
 const koa_router_1 = tslib_1.__importDefault(require("koa-router"));
 const mongodb_1 = require("mongodb");
 const cacheDataControler = tslib_1.__importStar(require("../mongodb/cacheData"));

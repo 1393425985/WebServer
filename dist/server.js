@@ -128,17 +128,6 @@ class Server {
         // 解析formdata body 上传文件
         this.app.use(koa_body_1.default({
             multipart: true,
-            // encoding: 'gzip',
-            formidable: {
-                uploadDir: path_1.default.join(__dirname, 'upload/'),
-                keepExtensions: true,
-                maxFieldsSize: 20 * 1024 * 1024,
-                onFileBegin: (name, file) => {
-                    // 文件上传前的设置
-                    // console.log(`name: ${name}`);
-                    // console.log(file);
-                },
-            },
         }));
         // jwt 解析
         this.app.use(koa_jwt_1.default({
