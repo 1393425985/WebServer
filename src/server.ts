@@ -159,8 +159,8 @@ class Server {
                 path: [
                     /^\/api\/user\/login/,
                     /^\/api\/user\/register/,
-                    /^\/api\/user\/graphiql/,
-                    /^\/api\/user\/graphql/,
+                    /^\/api\/\w+\/graphiql/,
+                    /^\/api\/\w+\/graphql/,
                     /^((?!\/api).)*$/,
                 ],
             }),

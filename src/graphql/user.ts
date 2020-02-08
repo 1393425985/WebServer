@@ -24,6 +24,9 @@ const fields = {
     email: {
         type: GraphQLString,
     },
+    createdAt:{
+        type: GraphQLString,
+    }
     // pwd: {
     //     type: GraphQLString,
     // },

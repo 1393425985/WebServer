@@ -48,15 +48,15 @@ router.post('/update', async ctx => {
     }
 });
 
-// router
-//     .post('/graphql', async (ctx, next) => {
-//         await graphqlKoa({ schema: schema })(ctx, next); // 使用schema
-//     })
-//     .get('/graphql', async (ctx, next) => {
-//         await graphqlKoa({ schema: schema })(ctx, next); // 使用schema
-//     })
-//     .get('/graphiql', async (ctx, next) => {
-//         await graphiqlKoa({ endpointURL: '/api/user/graphql' })(ctx); // 重定向到graphiql路由
-//     });
+router
+    .post('/graphql', async (ctx, next) => {
+        await graphqlKoa({ schema: schema })(ctx, next); // 使用schema
+    })
+    .get('/graphql', async (ctx, next) => {
+        await graphqlKoa({ schema: schema })(ctx, next); // 使用schema
+    })
+    .get('/graphiql', async (ctx, next) => {
+        await graphiqlKoa({ endpointURL: '/api/cacheData/graphql' })(ctx); // 重定向到graphiql路由
+    });
 
 module.exports = router;

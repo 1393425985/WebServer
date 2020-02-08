@@ -1,44 +1,30 @@
 import { Document, Schema, Model, model } from 'mongoose';
-import jwt from 'jsonwebtoken';
+
 import * as config from '../../utils/config';
 const ObjectId = Schema.Types.ObjectId;
 
-export interface UserModel extends UserType.Model, Document {
-    createToken: () => string;
-    token2info: (
-        token: string,
-    ) =>
-        | string
-        | {
-              [key: string]: any;
-          };
-}
+export interface AuthModel extends UserType.Model, Document {}
 
 export const UserSchema: Schema = new Schema({
     _id: {
         type: ObjectId,
         required: true,
     },
-    name: {
+    userId: {
         type: String,
         default: '未命名',
-        trim: true,
     },
     email: {
         type: String,
         default: '',
-        match: /^\w+@\w+$/,
     },
     tel: {
         type: String,
         default: '',
-        trim: true,
-        minlength: 11,
     },
     pwd: {
         type: String,
         required: true,
-        match: /^\w{6,}$/,
     },
     createdAt: {
         type: Date,
